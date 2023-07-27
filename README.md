@@ -13,9 +13,7 @@ The scripts also support multiple GPUs using a client/server model.
 
 ## Hardware
 
-I'm using an Ubuntu Linux servers with 3x Nvidia RTX 3090 GPUs.
-
-You can probably also limp along with Windows but everything is always harder to do on Windows.  Probably it's too hard to figure out on Windows and people will have to wait for developers to wrap it up in an easy-to-use package.  Typically I use Windows for my desktop OS and then use Tabby.sh and Visual Studio Code (with the Remote Development plugin) to do development on Linux servers.
+I'm using two Ubuntu Linux servers, each with 3x Nvidia RTX 3090 GPUs, for image generation. You can probably get single image generation working at full quality with a 16 GB card, but the server script might run out of memory.
 
 ## Download models
 
