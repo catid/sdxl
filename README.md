@@ -23,7 +23,8 @@ I'd suggest just downloading the models so you don't need to mess with tokens an
 sudo apt install git-lfs
 git lfs install
 
-mkdir -p ~/sdxl
+cd ~
+git clone https://github.com/catid/sdxl/
 cd ~/sdxl
 
 git clone https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0
