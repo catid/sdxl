@@ -90,9 +90,11 @@ python client.py --servers servers.txt --outdir images --prompt "An astronaut ri
 python client.py --prompt "An astronaut riding a horse on a planet made of cheese"
 ```
 
-This will generate 1024x1024 images continuously until you close the client in a `images` subfolder.
+This will generate 1024x1024 images continuously until you close the client in the `images` subfolder.
 
 ## Discussion
+
+Some example images are provided in the `images/` folder in this repo.
 
 To achieve full quality from an image generation server, 24 GB of VRAM seems required right now.  It uses about 15.3 GB VRAM for the first image, and then after that the usage goes up to 21.3 GB.
 
