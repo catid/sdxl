@@ -9,6 +9,8 @@ The goal is to try out all the cool new features to get the best possible qualit
 
 The scripts also support multiple GPUs using a client/server model.
 
+![Cheesy](./images/1.png)
+
 ## Hardware
 
 I'm using an Ubuntu Linux servers with 3x Nvidia RTX 3090 GPUs.
@@ -99,3 +101,7 @@ To achieve full quality from an image generation server, 24 GB of VRAM seems req
 It uses almost no CPU, only GPU.
 
 On the RTX 4090 both models generate at about 4 iterations per second, so 100 iterations takes about 25 seconds per image per GPU.
+
+I tried some prompts involving hands.  It definitely still has a hard time with hands.  So probably using an in-painting workflow to fix them is a good solution once Automatic1111 and other tools start working with this new model.
+
+I'm noticing a really bad blue/red artifact over all the images it produces.  Maybe related to the watermarking thing they're doing.  Seems worth turning that off just not sure how yet.
