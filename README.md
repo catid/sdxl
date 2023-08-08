@@ -105,5 +105,3 @@ It uses almost no CPU, only GPU.
 On the RTX 3090 both models generate at about 4 iterations per second, so 100 iterations takes about 25 seconds per image per GPU.
 
 I tried some prompts involving hands.  It definitely still has a hard time with hands.  So probably using an in-painting workflow to fix them is a good solution once Automatic1111 and other tools start working with this new model.
-
-I'm noticing a really bad blue/red artifact over all the images it produces.  Maybe related to the watermarking thing they're doing.  Seems worth turning that off just not sure how yet.
