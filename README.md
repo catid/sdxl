@@ -6,6 +6,7 @@ The goal is to try out all the cool new features to get the best possible qualit
 
 + 1024x1024 resolution.
 + Ensemble of expert denoisers, starting with the SDXL 1.0 base, and using the SDXL 1.0 refiner model for the last 20%.
++ Removes blue/red watermark speckles (without modifying diffusers).
 
 The scripts also support multiple GPUs using a client/server model.
 

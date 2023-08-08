@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional
 from PIL import Image
-from diffusers import DiffusionPipeline
+from diffusers import StableDiffusionXLPipeline, StableDiffusionXLImg2ImgPipeline
 import torch
 import io
 import argparse
@@ -32,11 +32,13 @@ def generate_image(prompt, steps, guide):
     # Base model
     if base_pipe is None:
         logging.info("Loading base model...")
-        base_pipe = DiffusionPipeline.from_pretrained(
+        base_pipe = StableDiffusionXLPipeline.from_pretrained(
             base_repo_id,
             torch_dtype=torch.float16,
             use_safetensors=True,
-            variant="fp16")
+            variant="fp16",
+            add_watermarker=False)
+
         base_pipe.to("cuda")
         base_pipe.unet = torch.compile(
             base_pipe.unet,
@@ -46,13 +48,15 @@ def generate_image(prompt, steps, guide):
     # Refiner model
     if refiner_pipe is None:
         logging.info("Loading refiner model...")
-        refiner_pipe = DiffusionPipeline.from_pretrained(
+        refiner_pipe = StableDiffusionXLImg2ImgPipeline.from_pretrained(
             refiner_repo_id,
             text_encoder_2=base_pipe.text_encoder_2,
             vae=base_pipe.vae,
             torch_dtype=torch.float16,
             use_safetensors=True,
-            variant="fp16")
+            variant="fp16",
+            add_watermarker=False)
+
         refiner_pipe.to("cuda")
         refiner_pipe.unet = torch.compile(
             refiner_pipe.unet,

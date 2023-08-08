@@ -43,7 +43,7 @@ if __name__ == "__main__":
                         help='The filename containing the server addresses and ports.')
     parser.add_argument('--prompt', type=str, default="An astronaut riding a horse on a planet made of cheese",
                         help='The prompt for the image generation.')
-    parser.add_argument('--steps', type=int, default=100,
+    parser.add_argument('--steps', type=int, default=120,
                         help='The number of steps to use for the image generation.')
     parser.add_argument('--guide', type=float, default=7.5,
                         help='The guide value for the image generation.')
