@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional
 from PIL import Image
-from diffusers import StableDiffusionXLPipeline, StableDiffusionXLImg2ImgPipeline
+from diffusers import StableDiffusionXLPipeline, StableDiffusionXLImg2ImgPipeline, AutoencoderKL
 import torch
 import io
 import argparse
@@ -24,20 +24,30 @@ width = 1024
 height = 1024
 high_noise_frac = 0.8
 
+vae = None
 base_pipe = None
 refiner_pipe = None
 
 def generate_image(prompt, steps, guide):
-    global base_pipe, refiner_pipe
+    global vae, base_pipe, refiner_pipe
+
+    # Community VAE FP16 fix from madebyollin
+    if vae is None:
+        vae = AutoencoderKL.from_pretrained("madebyollin/sdxl-vae-fp16-fix",
+                                            torch_dtype=torch.float16)
     # Base model
     if base_pipe is None:
         logging.info("Loading base model...")
         base_pipe = StableDiffusionXLPipeline.from_pretrained(
             base_repo_id,
+            vae=vae,
             torch_dtype=torch.float16,
             use_safetensors=True,
             variant="fp16",
             add_watermarker=False)
+
+        # Community "wrong" improvement from minimaxir
+        base_pipe.load_lora_weights("minimaxir/sdxl-wrong-lora")
 
         base_pipe.to("cuda")
         base_pipe.unet = torch.compile(
@@ -67,6 +77,7 @@ def generate_image(prompt, steps, guide):
     logging.info("Generating image...")
     base_image = base_pipe(
         prompt=prompt,
+        negative_prompt="wrong",
         width=width,
         height=height,
         guidance_scale=guide,
@@ -77,6 +88,7 @@ def generate_image(prompt, steps, guide):
     logging.info("Refining image...")
     refined_image = refiner_pipe(
         prompt=prompt,
+        negative_prompt="wrong",
         num_inference_steps=steps,
         denoising_start=high_noise_frac,
         image=base_image[None, :]).images[0]

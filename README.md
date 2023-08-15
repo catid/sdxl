@@ -7,6 +7,8 @@ The goal is to try out all the cool new features to get the best possible qualit
 + 1024x1024 resolution.
 + Ensemble of expert denoisers, starting with the SDXL 1.0 base, and using the SDXL 1.0 refiner model for the last 20%.
 + Removes blue/red watermark speckles (without modifying diffusers).
++ Community VAE FP16 fix from madebyollin that greatly improves quality of FP16 generation.
++ Community "wrong" improvement from minimaxir that pushes the diffuser away from often bad-looking latents.
 
 The scripts also support multiple GPUs using a client/server model.
 
@@ -47,7 +49,7 @@ conda activate sdxl
 
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-pip install -r requirements.txt
+pip install --upgrade -r requirements.txt
 
 python test_generate.py
 ```
