@@ -23,6 +23,7 @@ refiner_repo_id = "./stable-diffusion-xl-refiner-1.0"
 width = 1024
 height = 1024
 high_noise_frac = 0.8
+enable_wrong_lora = True # Recommended: This seems to help a lot with hands!
 
 vae = None
 base_pipe = None
@@ -46,8 +47,9 @@ def generate_image(prompt, steps, guide):
             variant="fp16",
             add_watermarker=False)
 
-        # Community "wrong" improvement from minimaxir
-        base_pipe.load_lora_weights("minimaxir/sdxl-wrong-lora")
+        if enable_wrong_lora:
+            # Community "wrong" improvement from minimaxir
+            base_pipe.load_lora_weights("minimaxir/sdxl-wrong-lora")
 
         base_pipe.to("cuda")
         base_pipe.unet = torch.compile(
@@ -73,11 +75,16 @@ def generate_image(prompt, steps, guide):
             mode="reduce-overhead",
             fullgraph=True)
 
+    if enable_wrong_lora:
+        negative_prompt="wrong"
+    else:
+        negative_prompt=None
+
     # Generate
     logging.info("Generating image...")
     base_image = base_pipe(
         prompt=prompt,
-        negative_prompt="wrong",
+        negative_prompt=negative_prompt,
         width=width,
         height=height,
         guidance_scale=guide,
@@ -88,7 +95,7 @@ def generate_image(prompt, steps, guide):
     logging.info("Refining image...")
     refined_image = refiner_pipe(
         prompt=prompt,
-        negative_prompt="wrong",
+        negative_prompt=negative_prompt,
         num_inference_steps=steps,
         denoising_start=high_noise_frac,
         image=base_image[None, :]).images[0]
