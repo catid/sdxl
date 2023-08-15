@@ -12,7 +12,9 @@ The goal is to try out all the cool new features to get the best possible qualit
 
 The scripts also support multiple GPUs using a client/server model.
 
-![Cheesy](./images/1.png)
+![Photograph of an astronaut riding a horse on mars](./images/3.png)
+
+"Photograph of an astronaut riding a horse on mars"
 
 ## Hardware
 
