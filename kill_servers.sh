@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ps a | grep sdxl/server.py | awk '{ print $1 }' | xargs -n1 kill -9 || true
+ps aux | grep sdxl/server.py | awk '{ print $2 }' | xargs -n1 kill -9 || true
