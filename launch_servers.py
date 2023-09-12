@@ -31,9 +31,9 @@ def launch_servers(node_addresses):
         cuda_device = string_count[host]
 
         python_path = "/home/catid/mambaforge/envs/sdxl/bin/python"
-        server_path = "/home/catid/sources/sdxl/server.py"
+        server_path = "/home/catid/sources/sdxl"
 
-        cmd = f"pdsh -b -R ssh -w {host} cd {server_path} && CUDA_VISIBLE_DEVICES={cuda_device} {python_path} {server_path} --port {port}"
+        cmd = f"pdsh -b -R ssh -w {host} \"cd {server_path} && CUDA_VISIBLE_DEVICES={cuda_device} {python_path} {server_path}/server.py --port {port}\""
         print(f"Running command: {cmd}")
 
         process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
