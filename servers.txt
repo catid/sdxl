@@ -1,6 +1,6 @@
-gpu1.lan:9000
-gpu1.lan:9001
-gpu2.lan:9000
-gpu2.lan:9001
-gpu3.lan:9000
-gpu3.lan:9001
+gpu1.lan:9200
+gpu1.lan:9201
+gpu2.lan:9200
+gpu2.lan:9201
+gpu3.lan:9200
+gpu3.lan:9201
