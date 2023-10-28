@@ -1,2 +1,6 @@
+gpu1.lan:9300
+gpu1.lan:9301
+gpu2.lan:9300
+gpu2.lan:9301
 gpu3.lan:9300
 gpu3.lan:9301

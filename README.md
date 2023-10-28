@@ -16,6 +16,15 @@ The scripts also support multiple GPUs using a client/server model.
 
 "Photograph of an astronaut riding a horse on mars"
 
+## enable_freeu
+
+Recently I added the .enable_freeu improvement from latest main diffusers repo.  If you already have a checkout, you'll need to upgrade your dependencies:
+
+```
+conda activate sdxl
+pip install --upgrade -r requirements.txt
+```
+
 ## Hardware
 
 I'm using two Ubuntu Linux servers, each with 3x Nvidia RTX 3090 GPUs, for image generation. You can probably get single image generation working at full quality with a 16 GB card, but the server script might run out of memory.
