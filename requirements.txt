@@ -1,4 +1,5 @@
-diffusers
+git+https://github.com/huggingface/diffusers.git@main#egg=diffusers
+
 invisible_watermark
 transformers
 accelerate

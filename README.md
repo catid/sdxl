@@ -34,6 +34,8 @@ cd ~/sdxl
 
 git clone https://huggingface.co/stabilityai/stable-diffusion-xl-refiner-1.0
 git clone https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0
+git clone https://huggingface.co/diffusers/controlnet-canny-sdxl-1.0
+git clone https://huggingface.co/madebyollin/sdxl-vae-fp16-fix
 ```
 
 ## Setup and test

@@ -47,15 +47,14 @@ def generate_image(prompt, steps, guide):
             variant="fp16",
             add_watermarker=False)
 
+        base_pipe.enable_freeu(s1=0.6, s2=0.4, b1=1.1, b2=1.2)
+
         if enable_wrong_lora:
             # Community "wrong" improvement from minimaxir
             base_pipe.load_lora_weights("minimaxir/sdxl-wrong-lora")
 
         base_pipe.to("cuda")
-        base_pipe.unet = torch.compile(
-            base_pipe.unet,
-            mode="reduce-overhead",
-            fullgraph=True)
+        #base_pipe.unet = torch.compile(base_pipe.unet, mode="reduce-overhead", fullgraph=True)
 
     # Refiner model
     if refiner_pipe is None:
@@ -69,11 +68,10 @@ def generate_image(prompt, steps, guide):
             variant="fp16",
             add_watermarker=False)
 
+        refiner_pipe.enable_freeu(s1=0.6, s2=0.4, b1=1.1, b2=1.2)
+
         refiner_pipe.to("cuda")
-        refiner_pipe.unet = torch.compile(
-            refiner_pipe.unet,
-            mode="reduce-overhead",
-            fullgraph=True)
+        #refiner_pipe.unet = torch.compile(refiner_pipe.unet, mode="reduce-overhead", fullgraph=True)
 
     if enable_wrong_lora:
         negative_prompt="wrong"
